@@ -482,9 +482,9 @@
                 
                 
                 <h1 id="application-programming-interface">Application programming interface</h1>
-<p>The hard way. Use the <code>Coveralls\Client</code> class to upload your coverage reports:</p>
+<p>The hard way. Use the <code>Coveralls\Http\Client</code> class to upload your coverage reports:</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Coveralls\</span><span class="p">{</span><span class="nx">Client</span><span class="p">,</span> <span class="nx">ClientException</span><span class="p">};</span>
+<span class="k">use</span> <span class="nx">Coveralls\Http\</span><span class="p">{</span><span class="nx">Client</span><span class="p">,</span> <span class="nx">ClientException</span><span class="p">};</span>
 
 <span class="k">function</span> <span class="nf">main</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
   <span class="k">try</span> <span class="p">{</span>
@@ -502,27 +502,26 @@
 
 
 <p>The <code>Client::upload()</code> method throws an <a href="https://secure.php.net/manual/en/class.invalidargumentexception.php"><code>InvalidArgumentException</code></a>
-if the input report is invalid. It throws a <code>Coveralls\ClientException</code> if any error occurred while uploading the report.</p>
+if the input report is invalid. It throws a <code>Coveralls\Http\ClientException</code> if any error occurred while uploading the report.</p>
 <h2 id="client-events">Client events</h2>
-<p>The <code>Coveralls\Client</code> class is an <a href="https://github.com/igorw/evenement/blob/master/src/Evenement/EventEmitterInterface.php"><code>EventEmitter</code></a> that triggers some events during its life cycle:</p>
+<p>The <code>Coveralls\Http\Client</code> class is a <a href="https://event.thephpleague.com/2.0/emitter/basic-usage"><code>League\Event\Emitter</code></a> that triggers some events during its life cycle:</p>
 <ul>
 <li><code>Client::EVENT_REQUEST</code> : emitted every time a request is made to the remote service.</li>
 <li><code>Client::EVENT_RESPONSE</code> : emitted every time a response is received from the remote service.</li>
 </ul>
-<p>You can subscribe to them using the <code>on()</code> method:</p>
+<p>You can subscribe to them using the <code>addListener()</code> method:</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Coveralls\</span><span class="p">{</span><span class="nx">Client</span><span class="p">};</span>
-<span class="k">use</span> <span class="nx">Psr\Http\Message\</span><span class="p">{</span><span class="nx">RequestInterface</span><span class="p">,</span> <span class="nx">ResponseInterface</span><span class="p">};</span>
+<span class="k">use</span> <span class="nx">Coveralls\Http\</span><span class="p">{</span><span class="nx">Client</span><span class="p">,</span> <span class="nx">RequestEvent</span><span class="p">,</span> <span class="nx">ResponseEvent</span><span class="p">};</span>
 
 <span class="k">function</span> <span class="nf">main</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
   <span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client</span><span class="p">;</span>
 
-  <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">on</span><span class="p">(</span><span class="nx">Client</span><span class="o">::</span><span class="na">EVENT_REQUEST</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nx">RequestInterface</span> <span class="nv">$request</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="s1">&#39;Client request: &#39;</span><span class="p">,</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getUri</span><span class="p">();</span>
+  <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">addListener</span><span class="p">(</span><span class="nx">Client</span><span class="o">::</span><span class="na">EVENT_REQUEST</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nx">RequestEvent</span> <span class="nv">$event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;Client request: &#39;</span><span class="p">,</span> <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getUri</span><span class="p">();</span>
   <span class="p">});</span>
 
-  <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">on</span><span class="p">(</span><span class="nx">Client</span><span class="o">::</span><span class="na">EVENT_RESPONSE</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$request</span><span class="p">,</span> <span class="nx">ResponseInterface</span> <span class="nv">$response</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="s1">&#39;Server response: &#39;</span><span class="p">,</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">getStatusCode</span><span class="p">();</span>
+  <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">addListener</span><span class="p">(</span><span class="nx">Client</span><span class="o">::</span><span class="na">EVENT_RESPONSE</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nx">ResponseEvent</span> <span class="nv">$event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;Server response: &#39;</span><span class="p">,</span> <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getStatusCode</span><span class="p">();</span>
   <span class="p">});</span>
 <span class="p">}</span>
 </pre></div>
@@ -533,8 +532,8 @@ if the input report is invalid. It throws a <code>Coveralls\ClientException</cod
                     
                     
                     
-                    <a href="https://github.com/cedx/coveralls.php/blob/master/lib/Client.php" title="lib/Client.php" class="md-source-file">
-                      lib/Client.php
+                    <a href="https://github.com/cedx/coveralls.php/blob/master/lib/Http/Client.php" title="lib/Http/Client.php" class="md-source-file">
+                      lib/Http/Client.php
                     </a>
                   
                 
