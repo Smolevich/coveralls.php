@@ -2,42 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://dev.belin.io/coveralls.php/</loc>
-     <lastmod>2019-09-21</lastmod>
+     <lastmod>2019-09-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://dev.belin.io/coveralls.php/installation/</loc>
-     <lastmod>2019-09-21</lastmod>
+     <lastmod>2019-09-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://dev.belin.io/coveralls.php/features/</loc>
-     <lastmod>2019-09-21</lastmod>
+     <lastmod>2019-09-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://dev.belin.io/coveralls.php/usage/cli/</loc>
-     <lastmod>2019-09-21</lastmod>
+     <lastmod>2019-09-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://dev.belin.io/coveralls.php/usage/api/</loc>
-     <lastmod>2019-09-21</lastmod>
+     <lastmod>2019-09-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://dev.belin.io/coveralls.php/about/changelog/</loc>
-     <lastmod>2019-09-21</lastmod>
+     <lastmod>2019-09-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://dev.belin.io/coveralls.php/about/license/</loc>
-     <lastmod>2019-09-21</lastmod>
+     <lastmod>2019-09-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://dev.belin.io/coveralls.php/about/see_also/</loc>
-     <lastmod>2019-09-21</lastmod>
+     <lastmod>2019-09-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
