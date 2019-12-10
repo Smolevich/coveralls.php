@@ -443,13 +443,23 @@
 <p>Then use it to upload your coverage reports:</p>
 <div class="codehilite"><pre><span></span>$ coveralls --help
 
-Send a coverage report to the Coveralls service.
+Description:
+  Send a coverage report to the Coveralls service.
 
-Usage: coveralls <span class="o">[</span>options<span class="o">]</span> &lt;file&gt;
+Usage:
+  coveralls &lt;file&gt;
+
+Arguments:
+  file                  The path of the coverage report to upload
 
 Options:
--h, --help       Output usage information.
--v, --version    Output the version number.
+  -h, --help            Display this <span class="nb">help</span> message
+  -q, --quiet           Do not output any message
+  -V, --version         Display this application version
+      --ansi            Force ANSI output
+      --no-ansi         Disable ANSI output
+  -n, --no-interaction  Do not ask any interactive question
+  -v<span class="p">|</span>vv<span class="p">|</span>vvv, --verbose  Increase the verbosity of messages: <span class="m">1</span> <span class="k">for</span> normal output, <span class="m">2</span> <span class="k">for</span> more verbose output and <span class="m">3</span> <span class="k">for</span> debug
 </pre></div>
 
 
@@ -522,7 +532,7 @@ Options:
       <div class="md-footer-copyright">
         
           <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2017 - 2019 Cédric Belin
+            Copyright &copy; 2017 - 2020 Cédric Belin
           </div>
         
         powered by
